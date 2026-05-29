@@ -32,7 +32,7 @@ outputs:
         name: Manufacturer Part Number
       - field: mouser#
         name: Mouser Part Number
-      - field: manf#
+      - field: manf
         name: Manufacturer Name
       - field: Value
         name: Description
