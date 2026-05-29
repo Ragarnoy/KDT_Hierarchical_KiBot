@@ -20,8 +20,8 @@ env:
   # RELEASED: similar to CHECKED, automatically selected when pushing a tag to main
   kibot_variant: DRAFT
 
-  # Set the KiCad version to 9
-  kicad_version: 9
+  # Set the KiCad version to 10
+  kicad_version: 10
 
   kibot_log: kibot_run.log
  
@@ -120,11 +120,12 @@ jobs:
             echo "kibot_variant=${{ env.kibot_variant }}" >> $GITHUB_ENV
           fi
 
-          # Decide which group to use depending on kicad_version
-          if [[ "${{ env.kicad_version }}" == "9" ]]; then
-            group_name="all_group_k9"
-          else
+          # Decide which group to use depending on kicad_version.
+          # KiCad 8 uses all_group; KiCad 9 and 10 use all_group_k9 (ODB++ enabled).
+          if [[ "${{ env.kicad_version }}" == "8" ]]; then
             group_name="all_group"
+          else
+            group_name="all_group_k9"
           fi
 
           # Determine additional_args based on the variant
@@ -157,9 +158,9 @@ jobs:
           config: ${{ env.kibot_config }}
           additional_args: --log kibot_run_notes.log notes
 
-      - name: Generate notes (KiCad 9)
-        if: ${{ env.kicad_version == '9' && env.kibot_variant != 'DRAFT' }}
-        uses: INTI-CMNB/KiBot@v2_dk9
+      - name: Generate notes (KiCad 10)
+        if: ${{ env.kicad_version == '10' && env.kibot_variant != 'DRAFT' }}
+        uses: INTI-CMNB/KiBot@v2_dk10
         with:
           skip: all
           variant: ${{ env.kibot_variant }}
@@ -176,9 +177,9 @@ jobs:
           config: ${{ env.kibot_config }}
           additional_args: --log kibot_run_readme.log md_readme
 
-      - name: Generate README only (KiCad 9)
-        if: ${{ env.kicad_version == '9' && env.kibot_variant == 'DRAFT' }}
-        uses: INTI-CMNB/KiBot@v2_dk9
+      - name: Generate README only (KiCad 10)
+        if: ${{ env.kicad_version == '10' && env.kibot_variant == 'DRAFT' }}
+        uses: INTI-CMNB/KiBot@v2_dk10
         with:
           skip: draw_fancy_stackup,set_text_variables,erc,drc
           variant: ${{ env.kibot_variant }}
@@ -195,9 +196,9 @@ jobs:
           config: ${{ env.kibot_config }}
           cache3D: YES
 
-      - name: Generate outputs (KiCad 9)
-        if: ${{ env.kicad_version == '9' }}
-        uses: INTI-CMNB/KiBot@v2_dk9
+      - name: Generate outputs (KiCad 10)
+        if: ${{ env.kicad_version == '10' }}
+        uses: INTI-CMNB/KiBot@v2_dk10
         with:
           additional_args: ${{ env.additional_args }}
           variant: ${{ env.kibot_variant }}

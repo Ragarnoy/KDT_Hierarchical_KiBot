@@ -1,4 +1,4 @@
-<h1 align="center">KiCad 8/9 Template for CI/CD with KiBot</h1>
+<h1 align="center">KiCad 8/9/10 Template for CI/CD with KiBot</h1>
 
 <p align="center">
   <a href=https://www.kicad.org/>
@@ -10,7 +10,7 @@
   </a>
 </p>
 
-A **KiCad 8/9** template for **automated**, professional documentation generation with **Continuous Integration and Continuous Development** (CI/CD) using [KiBot](https://github.com/INTI-CMNB/KiBot/tree/master).
+A **KiCad 8/9/10** template for **automated**, professional documentation generation with **Continuous Integration and Continuous Development** (CI/CD) using [KiBot](https://github.com/INTI-CMNB/KiBot/tree/master).
 
 A video tutorial for setting up this template is available [here](https://www.youtube.com/watch?v=63R6Wnx44uY).
 
@@ -105,7 +105,7 @@ You should move this file to your KiCad Themes folder.
     `cp -i KDT_Hierarchical_KiBot/kibot_resources/colors/Altium_Theme.json ~/.config/kicad/8.0/colors/`
 
 > [!NOTE]
-> In the steps above, replace ```8.0``` with ```9.0``` for KiCad 9
+> In the steps above, replace ```8.0``` with ```9.0``` for KiCad 9 or ```10.0``` for KiCad 10
 
 5. Create a new project with:
 
@@ -292,6 +292,20 @@ The easiest way to install KiBot if custom development is not required is with d
 
   ```
   ./docker_kibot_linux.sh -v 9
+  ```
+  ***
+**KiCad 10**
+
+  Windows:
+
+  ```
+  .\docker_kibot_windows.bat -v 10
+  ```
+
+  Linux:
+
+  ```
+  ./docker_kibot_linux.sh -v 10
   ```
   ***
 
