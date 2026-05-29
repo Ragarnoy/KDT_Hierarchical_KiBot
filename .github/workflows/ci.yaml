@@ -148,24 +148,12 @@ jobs:
           echo "version_arg=${version_arg}" >> $GITHUB_ENV
           echo "additional_args=${additional_args}" >> $GITHUB_ENV
 
-      # Generate notes (skipped for DRAFT variant)
-      - name: Generate notes (KiCad 8)
-        if: ${{ env.kicad_version == '8' && env.kibot_variant != 'DRAFT' }}
-        uses: INTI-CMNB/KiBot@v2_dk8
-        with:
-          skip: all
-          variant: ${{ env.kibot_variant }}
-          config: ${{ env.kibot_config }}
-          additional_args: --log kibot_run_notes.log notes
-
-      - name: Generate notes (KiCad 10)
-        if: ${{ env.kicad_version == '10' && env.kibot_variant != 'DRAFT' }}
-        uses: INTI-CMNB/KiBot@v2_dk10
-        with:
-          skip: all
-          variant: ${{ env.kibot_variant }}
-          config: ${{ env.kibot_config }}
-          additional_args: --log kibot_run_notes.log notes
+      # NOTE: the standalone "Generate notes" pre-pass was removed. Under KiBot
+      # 1.9.1 (KiCad 10) it runs the `notes` target in isolation, which pulls
+      # pdf_fabrication via the include_table preflight before csv_drill_table
+      # exists -> "create it first" error. The main "Generate outputs" run below
+      # uses all_group, which orders csv_drill_table before pdf_fabrication, so
+      # the notes are produced there correctly.
 
       # Generate README only (only for DRAFT variant)
       - name: Generate README only (KiCad 8)
@@ -249,13 +237,6 @@ jobs:
         with:
           name: log_file
           path: ${{ env.kibot_log }}
-
-      - name: Store notes log
-        if: ${{ always() && env.kibot_variant != 'DRAFT' }} 
-        uses: actions/upload-artifact@v7
-        with:
-          name: log_file_notes
-          path: kibot_run_notes.log
 
       - name: Store README log
         if: ${{ always() && env.kibot_variant == 'DRAFT' }} 
