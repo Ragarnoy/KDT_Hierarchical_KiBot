@@ -254,6 +254,17 @@
 	(property "VARIANT" "")
 	(net 0 "")
 	(gr_rect
+		(start 10 15)
+		(end 220 155)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "Edge.Cuts")
+		(uuid "b1e7c0de-0000-4000-8000-000000000001")
+	)
+	(gr_rect
 		(start 172 48.5)
 		(end 254.5 131)
 		(stroke
