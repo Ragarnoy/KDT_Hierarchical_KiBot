@@ -121,11 +121,14 @@ jobs:
           fi
 
           # Decide which group to use depending on kicad_version.
-          # KiCad 8 uses all_group; KiCad 9 and 10 use all_group_k9 (ODB++ enabled).
-          if [[ "${{ env.kicad_version }}" == "8" ]]; then
-            group_name="all_group"
-          else
+          # KiCad 9 uses all_group_k9 (ODB++); KiCad 8 and 10 use all_group.
+          # NOTE: KiCad 10 deliberately uses all_group (not all_group_k9): the
+          # ODB++ output in fab_k9 disrupts drill-table ordering under the
+          # KiBot 1.9.1 image, so we stick to the proven plain-gerber path.
+          if [[ "${{ env.kicad_version }}" == "9" ]]; then
             group_name="all_group_k9"
+          else
+            group_name="all_group"
           fi
 
           # Determine additional_args based on the variant
