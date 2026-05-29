@@ -49,18 +49,12 @@ outputs:
           bottom_rule_width: 0.2
           column_spacing: 2
           force_font_width: 1.27 # mm
-        - name: '@NAME_IMPEDANCE_TABLE@'
-          text_alignment: 'left'
-          invert_columns_order: false
-          border_width: 0.4
-          header_rule_width: 0.2
-          horizontal_rule_width: 0
-          vertical_rule_width: 0.2
-          top_rule_width: 0.2
-          bottom_rule_width: 0.2
-          row_spacing: 3
-          column_spacing: 2
-          row_spacing: 3
+        # NOTE: @NAME_IMPEDANCE_TABLE@ (a `report`-type output) intentionally NOT
+        # embedded here. Under KiBot 1.9.1 (KiCad 10 image), embedding a `report`
+        # output via include_table inside a pcb_print causes infinite
+        # out_report <-> out_pcb_print recursion (RecursionError). The impedance
+        # table is still generated as a standalone CSV. Safe to embed: excellon
+        # (drill) and bom outputs only.
         - name: '@NAME_DRILL_TABLE@'
           text_alignment: 'left'
           invert_columns_order: false
